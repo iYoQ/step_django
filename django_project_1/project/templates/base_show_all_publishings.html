@@ -1,0 +1,23 @@
+{% load static %}
+{% block publishing %}
+
+{% include 'inc/_inc.html' %}
+
+{% block inc %}
+{% endblock %}
+<body>
+    <div class="main">
+        {% for publishing in publishings %}
+        <ul>
+        <li style="list-style-type:none"><h1>{{ publishing.name }}</h1></li>
+            {% for book in books %}
+                {% if book.publishing_relative.name == publishing.name %}
+                    <li>{{ book.name }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+</body>
+</html>
+{% endblock %}

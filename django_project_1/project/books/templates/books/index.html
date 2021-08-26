@@ -1,0 +1,17 @@
+{% load static %}
+{% block main %}
+
+{% include 'inc/_inc.html' %}
+
+{% block inc %}
+{% endblock %}
+
+<body>
+    <div class="links">
+        <a href="books">{{ books }}</a>
+        <a href="publishings">{{ publishing }}</a>
+        <a href="author_form">{{ author_form }}</a>
+    </div>
+</body>
+</html>
+{% endblock %}

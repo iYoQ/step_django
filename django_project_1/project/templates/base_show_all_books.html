@@ -1,0 +1,29 @@
+{% load static %}
+{% block show_books %}
+
+{% include 'inc/_inc.html' %}
+
+{% block inc %}
+{% endblock %}
+
+<body>
+	<div class="main">
+		{% for book in books %}
+			<ul class="ulBooks">
+				<li style="list-style-type:none"><h1>{{ book.name}}</h1></li>
+				<li>{{ book.write_date }}</li>
+				<li>{{ book.discription }}</li>
+				<li>{{ book.pages }}</li>
+				{% if book.image %}
+					<li><img align="middle" src="media/{{book.image}}" alt="" hspace="50"></li>
+				{% endif %}
+				<li>{{ book.author_relative }}</li>
+				<li>{{ book.publishing_relative }}</li>
+			</ul>
+			{% empty %}
+				<h1>empty list</h1>
+		{% endfor %}
+	</div>
+</body>
+</html>
+{% endblock %}

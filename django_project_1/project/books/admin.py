@@ -7,7 +7,7 @@ class AuthorsAdmin(admin.ModelAdmin):
     search_fields = ('name', 'surename')
 
 class BooksAdmin(admin.ModelAdmin):
-    list_display = ('name', 'write_date', 'discription', 'pages', 'image', 'author_relative', 'publishing_relative')
+    list_display = ('name', 'write_date', 'description', 'pages', 'image', 'author_relative', 'publishing_relative')
     list_display_links = ('name',)
     search_fields = ('name',)
 
@@ -16,7 +16,7 @@ class BookInLine(admin.TabularInline):
 
 class PublishingsAdmin(admin.ModelAdmin):
     def show_books(self, obj):
-        return ', '.join(book.name for book in obj.books_set.all())
+        return '; '.join(book.name for book in obj.books_set.all())
 
     inlines = [BookInLine, ]
     list_display = ('name', 'show_books')

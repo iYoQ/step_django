@@ -14,7 +14,7 @@ ul {
 
 .links {
     background-color: #f8d9bf;
-    height: 70px;
+    height: 90px;
     width: 200px;
     display: flex;
     flex-direction: column;
@@ -30,4 +30,19 @@ a {
 img {
     height: 500px;
     width: 350px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+}
+
+.forms_block {
+    display: flex;
+    justify-content: space-around;
+}
+
+#image {
+    display: none;
 }

@@ -1,0 +1,81 @@
+{% load static %}
+
+{% block form %}
+   <div class="forms_block">
+      <form action="{% url 'forms' %}" method="POST">
+         {% csrf_token %}
+         {{ author_form.none_field.errors }}
+         
+         <div class="field_errors">
+            {{ author_form.name.errors }}
+         </div>
+         {{ author_form.name }}
+         
+         <div class="field_errors">
+            {{ author_form.surname.errors }}
+         </div>
+         {{ author_form.surename }}
+         
+         <div class="field_errors">
+            {{ author_form.fathername.errors }}
+         </div>
+         {{ author_form.fathername }}
+
+         <div class="field_errors">
+            {{ author_form.city.errors }}
+         </div>
+         {{ author_form.city }}
+
+         <div class="field_errors">
+            {{ author_form.birthday.errors }}
+         </div>
+         {{ author_form.birthday }}
+
+         <button class="btn btn-dark" type="submit" name="send_author">Send form</button>
+      </form>
+
+      <form enctype="multipart/form-data" action="{% url 'forms' %}" method="POST">
+         {% csrf_token %}
+         {{ book_form.none_field.errors }}
+         
+         <div class="field_errors">
+            {{ book_form.name.errors }}
+         </div>
+         {{ book_form.name }}
+         
+         <div class="field_errors">
+            {{ book_form.write_date.errors }}
+         </div>
+         {{ book_form.write_date }}
+         
+         <div class="field_errors">
+            {{ book_form.description.errors }}
+         </div>
+         {{ book_form.description }}
+
+         <div class="field_errors">
+            {{ book_form.pages.errors }}
+         </div>
+         {{ book_form.pages }}
+
+         <div class="field_errors">
+            {{ book_form.author_relative.errors }}
+         </div>
+         {{ book_form.author_relative }}
+
+         <div class="field_errors">
+            {{ book_form.publishing_relative.errors }}
+         </div>
+         {{ book_form.publishing_relative }}
+
+         <div class="field_errors">
+            {{ book_form.image.errors }}
+         </div>
+         {{ book_form.image }}
+         <label for="image" class="btn btn-dark">Image for book</label>
+
+         <button class="btn btn-dark" type="submit" name="send_book">Send form</button>
+      </form>
+   </div>
+
+{% endblock %}

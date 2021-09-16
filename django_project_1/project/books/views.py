@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .models import Authors, Books, Publishings
-from .forms import FormAuthors
+from .forms import AddAuthorForm, AddBookForm
 
 def index(request):
-    context = {'books': 'show books', 'publishing': 'show publishing', 'author_form': 'author form'}
+    context = {'books': 'show books', 'publishing': 'show publishing', 'forms': 'show forms'}
     return render(request, 'books/index.html', context=context)
 
 def show_books(request):
@@ -23,22 +24,42 @@ def show_publishings(request):
 
     return render(request, 'books/publishings.html', context=context)
 
-def author_form(request):
-    
-    if request.method == 'POST':
-        form = FormAuthors(request.POST)
-        if form.is_valid() and form.is_bound:
-            name = form.cleaned_data['name']
-            surename = form.cleaned_data['surename']
-            fathername = form.cleaned_data['fathername']
-            city = form.cleaned_data['city']
-            birthday = form.cleaned_data['birthday']
+def show_forms(request):
+    author_form = AddAuthorForm()
+    book_form = AddBookForm()
 
-            author = Authors(name=name, surename=surename, fathername=fathername, city=city, birthday=birthday)
-            author.save()
-    else:
-        form = FormAuthors
+    if request.method == 'POST' and 'send_author' in request.POST:
+        author_form = AddAuthorForm(request.POST)
 
-    context = {'form': form, }
+        if author_form.is_valid() and author_form.is_bound:
+            name = author_form.cleaned_data['name']
+            surename = author_form.cleaned_data['surename']
+            fathername = author_form.cleaned_data['fathername']
+            city = author_form.cleaned_data['city']
+            birthday = author_form.cleaned_data['birthday']
 
-    return render(request, 'books/form.html', context=context)
+            Authors(name=name, surename=surename, fathername=fathername, city=city, birthday=birthday).save()
+            author_form = AddAuthorForm()
+
+            return HttpResponseRedirect('forms')
+
+    elif request.method == 'POST' and 'send_book' in request.POST:
+        book_form = AddBookForm(request.POST, request.FILES)
+
+        if book_form.is_valid() and book_form.is_bound:
+            name = book_form.cleaned_data['name']
+            write_date = book_form.cleaned_data['write_date']
+            description = book_form.cleaned_data['description']
+            pages = book_form.cleaned_data['pages']
+            image = book_form.cleaned_data['image']
+            author_relative = Authors.objects.get(id=book_form.cleaned_data['author_relative'])
+            publishing_relative = Publishings.objects.get(id=book_form.cleaned_data['publishing_relative'])
+
+            Books(name=name, write_date=write_date, description=description, pages=pages, image=image, author_relative=author_relative, publishing_relative=publishing_relative).save()
+            book_form = AddBookForm()
+
+            return HttpResponseRedirect('forms')
+
+    context = {'author_form': author_form, 'book_form': book_form}
+
+    return render(request, 'books/forms.html', context=context)

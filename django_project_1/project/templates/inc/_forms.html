@@ -36,45 +36,12 @@
 
       <form enctype="multipart/form-data" action="{% url 'forms' %}" method="POST">
          {% csrf_token %}
-         {{ book_form.none_field.errors }}
-         
-         <div class="field_errors">
-            {{ book_form.name.errors }}
-         </div>
-         {{ book_form.name }}
-         
-         <div class="field_errors">
-            {{ book_form.write_date.errors }}
-         </div>
-         {{ book_form.write_date }}
-         
-         <div class="field_errors">
-            {{ book_form.description.errors }}
-         </div>
-         {{ book_form.description }}
+         {{ book_form }}
 
-         <div class="field_errors">
-            {{ book_form.pages.errors }}
-         </div>
-         {{ book_form.pages }}
-
-         <div class="field_errors">
-            {{ book_form.author_relative.errors }}
-         </div>
-         {{ book_form.author_relative }}
-
-         <div class="field_errors">
-            {{ book_form.publishing_relative.errors }}
-         </div>
-         {{ book_form.publishing_relative }}
-
-         <div class="field_errors">
-            {{ book_form.image.errors }}
-         </div>
          {{ book_form.image }}
-         <label for="image" class="btn btn-dark">Image for book</label>
+         <label for="image" class="btn btn-dark">Image for book</label> 
 
-         <button class="btn btn-dark" type="submit" name="send_book">Send form</button>
+         <button class="btn btn-dark" type="submit" name="send_book">Send form</button> 
       </form>
    </div>
 

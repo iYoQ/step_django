@@ -1,8 +1,12 @@
-.main {
+.show_book {
     padding-left: 5px;
     display: flex;
     justify-content: center;
     flex-flow: wrap;
+}
+
+.main {
+    display: flex;
 }
 
 ul {

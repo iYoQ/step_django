@@ -8,21 +8,28 @@
 
 <body>
 	<div class="main">
-		{% for book in books %}
-			<ul class="ulBooks">
-				<li style="list-style-type:none"><h1>{{ book.name}}</h1></li>
-				<li>{{ book.write_date }}</li>
-				<li>{{ book.description }}</li>
-				<li>{{ book.pages }}</li>
-				{% if book.image %}
-					<li><img align="middle" src="media/{{book.image}}" alt="" hspace="50"></li>
-				{% endif %}
-				<li>{{ book.author_relative }}</li>
-				<li>{{ book.publishing_relative }}</li>
-			</ul>
+		<div class="filter">
+			<form action="" method="GET">
+				{{ books_filter.form.as_p }}
+				
+				<button class="btn btn-dark" type="submit">Filter</button> 
+			</form>
+		</div>
+		<div class="show_book">
+			{% for book in books_filter.qs %}
+				<div class="card" style="width:400px">
+					<img class="card-img-top" src="media/{{book.image}}" alt="Card image">
+					<div class="card-body">
+						<h4 class="card-title">{{ book.name}}</h4>
+						<p class="card-text"> {{ book.description }} </p>
+						<p class="card-text"> {{ book.author_relative }} </p>
+						<a href="#" class="btn btn-primary">See Book</a>
+					</div>
+				</div>
 			{% empty %}
 				<h4>empty list</h4>
-		{% endfor %}
+			{% endfor %}
+		</div>
 	</div>
 </body>
 </html>

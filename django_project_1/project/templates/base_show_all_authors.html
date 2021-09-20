@@ -10,21 +10,22 @@
 	<div class="main">
 		<div class="filter">
 			<form action="" method="GET">
-				{{ books_filter.form.as_p }}
+				{{ authors_filter.form.as_p }}
 				
 				<button class="btn btn-dark" type="submit">Filter</button> 
 			</form>
 		</div>
 		<div class="show_book">
-			{% for book in books_filter.qs %}
+			{% for author in authors_filter.qs %}
 				<div class="card" style="width:400px">
-					<img class="card-img-top" src="media/{{book.image}}" alt="Card image">
 					<div class="card-body">
-						<h4 class="card-title">{{ book.name}}</h4>
-						<p class="card-text"> {{ book.description }} </p>
-						<p class="card-text"> Write date: {{ book.write_date }} </p>
-						<p class="card-text"> Author: {{ book.author_relative }} </p>
-						<a href="#" class="btn btn-primary">See Book</a>
+						<h4 class="card-title">{{ author }}</h4>
+                        <p class="card-text"> Books: </p>
+                        {% for book in books %}
+                            {% if book.author_relative == author %}
+                                <img class="img_in_show_authors" src="media/{{book.image}}" alt="Card image">
+                            {% endif %}
+                        {% endfor %}
 					</div>
 				</div>
 			{% empty %}

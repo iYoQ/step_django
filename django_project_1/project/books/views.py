@@ -2,16 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import Authors, Books, Publishings
 from .forms import AddAuthorForm, AddBookForm
+from .filters import BooksFilter, AuthorsFilter
 
 def index(request):
-    context = {'books': 'show books', 'publishing': 'show publishing', 'forms': 'show forms'}
+    context = {'books': 'show books', 'publishing': 'show publishing', 'forms': 'show forms', 'authors': 'show authors',}
     return render(request, 'books/index.html', context=context)
 
 def show_books(request):
-
     books = Books.objects.all()
+    books_filter = BooksFilter(request.GET, queryset=books)
 
-    context = {'books': books}
+    context = {'books': books, 'books_filter': books_filter}
 
     return render(request, 'books/books.html', context=context)
 
@@ -63,3 +64,11 @@ def show_forms(request):
     context = {'author_form': author_form, 'book_form': book_form}
 
     return render(request, 'books/forms.html', context=context)
+
+def show_authors(request):
+    authors_filter = AuthorsFilter(request.GET, queryset=Authors.objects.all())
+    books = Books.objects.all()
+
+    context = {'authors_filter': authors_filter, 'books': books}
+
+    return render(request, 'books/authors.html', context=context)

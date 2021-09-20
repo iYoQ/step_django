@@ -2,7 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import Authors, Books, Publishings
 from .forms import AddAuthorForm, AddBookForm
+<<<<<<< HEAD
 from .filters import BooksFilter, AuthorsFilter
+=======
+from .filters import BooksFilter
+>>>>>>> f58b386e285854b118b683cca142183403c98e56
 
 def index(request):
     context = {'books': 'show books', 'publishing': 'show publishing', 'forms': 'show forms', 'authors': 'show authors',}

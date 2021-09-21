@@ -72,3 +72,10 @@ def show_authors(request):
     context = {'authors_filter': authors_filter, 'books': books}
 
     return render(request, 'books/authors.html', context=context)
+
+def open_book(request, id_book):
+    book = Books.objects.get(id=id_book)
+    
+    context = {'book': book}
+
+    return render(request, 'books/about_book.html', context=context)

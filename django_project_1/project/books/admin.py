@@ -15,11 +15,11 @@ class BookInLine(admin.TabularInline):
     model = Books
 
 class PublishingsAdmin(admin.ModelAdmin):
-    def show_books(self, obj):
+    def list_of_books(self, obj):
         return '; '.join(book.name for book in obj.books_set.all())
 
     inlines = [BookInLine, ]
-    list_display = ('name', 'show_books')
+    list_display = ('name', 'list_of_books')
     list_display_links = ('name',)
     search_fields = ('name',)
 

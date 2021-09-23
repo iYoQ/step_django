@@ -20,7 +20,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('books.urls')),
+    path('', include('user_forms.urls')),
+    path('books/', include('books.urls')),
 ]
 
 if settings.DEBUG:

@@ -8,7 +8,7 @@
 <body>
     <div class="main">
         {% for publishing in publishings %}
-        <ul>
+        <ul class="publishing_ul">
         <li style="list-style-type:none"><h1>{{ publishing.name }}</h1></li>
             {% for book in books %}
                 {% if book.publishing_relative.name == publishing.name %}

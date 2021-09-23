@@ -4,7 +4,7 @@ from .views import show_forms, index, show_books, show_publishings, show_authors
 
 urlpatterns = [
     path('', index),
-    path('books', show_books, name='books'),
+    path('books/', show_books, name='books'),
     path('publishings/', show_publishings, name='publishings'),
     path('forms/', show_forms, name='forms'),
     path('authors/', show_authors, name='authors'),

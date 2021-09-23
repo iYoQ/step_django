@@ -23,7 +23,7 @@
                         <p class="card-text"> Books: </p>
                         {% for book in books %}
                             {% if book.author_relative == author %}
-                                <img class="img_in_show_authors" src="media/{{book.image}}" alt="Card image">
+                                <img class="img_in_show_authors" src="{{book.image.url}}" alt="Card image">
                             {% endif %}
                         {% endfor %}
 					</div>

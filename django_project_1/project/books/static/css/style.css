@@ -9,7 +9,7 @@
     display: flex;
 }
 
-ul {
+.publishing_ul {
     width: 500px;
     background-color: #e5c0a0;
     border: 1px solid black;
@@ -53,4 +53,11 @@ form {
 .img_in_show_authors {
     width: 150px;
     height: 200px;
+}
+
+.home_form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
 }

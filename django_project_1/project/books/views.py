@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 from .models import Authors, Books, Publishings
 from .forms import AddAuthorForm, AddBookForm
 from .filters import BooksFilter, AuthorsFilter
@@ -42,7 +41,7 @@ def show_forms(request):
             Authors(name=name, surename=surename, fathername=fathername, city=city, birthday=birthday).save()
             author_form = AddAuthorForm()
 
-            return HttpResponseRedirect('forms')
+            return redirect('forms')
 
     elif request.method == 'POST' and 'send_book' in request.POST:
         book_form = AddBookForm(request.POST, request.FILES)
@@ -59,7 +58,7 @@ def show_forms(request):
             Books(name=name, write_date=write_date, description=description, pages=pages, image=image, author_relative=author_relative, publishing_relative=publishing_relative).save()
             book_form = AddBookForm()
 
-            return HttpResponseRedirect('forms')
+            return redirect('forms')
 
     context = {'author_form': author_form, 'book_form': book_form}
 

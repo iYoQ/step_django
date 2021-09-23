@@ -17,22 +17,11 @@
             <button class="btn btn-dark" type="submit" name="registration" data-bs-toggle="modal" data-bs-target="#myModal">Registration</button> 
         </form>
         {% if messages %}
-        <div class="modal" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Registration</h4>
-                    </div>
-                    <div class="modal-body">
-                            <ul class="messages">
-                            {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    <strong>Success!</strong> {{ message }}
                 </div>
-            </div>
-        </div>
+            {% endfor %}
         {% endif %}
         <hr>
         <h2>Authorization</h2>
@@ -44,7 +33,10 @@
         </form>
     </div>
 
+    
 
 </body>
 </html>
+
+
 {% endblock %}

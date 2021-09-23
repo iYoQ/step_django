@@ -10,11 +10,11 @@ def home(request):
         user_reg = UserCreationForm(request.POST)
         if user_reg.is_valid():
             user_reg.save()
-            messages.success(request, 'Success register')
+            messages.success(request, 'Registration is done.')
             return redirect('home')
 
     elif request.method == 'POST' and 'authorization' in request.POST:
-        user_auth = AuthenticationForm(request.POST)
+        user_auth = AuthenticationForm(data=request.POST)
         if user_auth.is_valid():
             return redirect('books')
 

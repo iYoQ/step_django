@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
 def home(request):
@@ -15,8 +16,13 @@ def home(request):
 
     elif request.method == 'POST' and 'authorization' in request.POST:
         user_auth = AuthenticationForm(data=request.POST)
-        if user_auth.is_valid():
-            return redirect('books')
+
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(request.GET['next'])
 
     context = {'user_reg': user_reg, 'user_auth': user_auth}
 

@@ -2,11 +2,15 @@ from django.shortcuts import render, redirect
 from .models import Authors, Books, Publishings
 from .forms import AddAuthorForm, AddBookForm
 from .filters import BooksFilter, AuthorsFilter
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
-def index(request):
-    context = {'books': 'show books', 'publishing': 'show publishing', 'forms': 'show forms', 'authors': 'show authors',}
-    return render(request, 'books/index.html', context=context)
+@login_required(login_url='home')
+def main(request):
+    context = {'books': 'show books', 'publishing': 'show publishing', 'forms': 'show forms', 'authors': 'show authors', 'logout': 'logout'}
+    return render(request, 'books/main.html', context=context)
 
+@login_required(login_url='home')
 def show_books(request):
     books = Books.objects.all()
     books_filter = BooksFilter(request.GET, queryset=books)
@@ -15,6 +19,7 @@ def show_books(request):
 
     return render(request, 'books/books.html', context=context)
 
+@login_required(login_url='home')
 def show_publishings(request):
 
     publishings = Publishings.objects.all()
@@ -24,6 +29,7 @@ def show_publishings(request):
 
     return render(request, 'books/publishings.html', context=context)
 
+@login_required(login_url='home')
 def show_forms(request):
     author_form = AddAuthorForm()
     book_form = AddBookForm()
@@ -64,6 +70,7 @@ def show_forms(request):
 
     return render(request, 'books/forms.html', context=context)
 
+@login_required(login_url='home')
 def show_authors(request):
     authors_filter = AuthorsFilter(request.GET, queryset=Authors.objects.all())
     books = Books.objects.all()
@@ -72,9 +79,14 @@ def show_authors(request):
 
     return render(request, 'books/authors.html', context=context)
 
+@login_required(login_url='home')
 def open_book(request, id_book):
     book = Books.objects.get(id=id_book)
     
     context = {'book': book}
 
     return render(request, 'books/about_book.html', context=context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')

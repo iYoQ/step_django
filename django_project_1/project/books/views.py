@@ -4,20 +4,40 @@ from .forms import AddAuthorForm, AddBookForm
 from .filters import BooksFilter, AuthorsFilter
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.views.generic import ListView
+
+
+class BooksView(ListView):
+    paginate_by = 2
+    model = Books()
+    template_name = 'books/books.html'
+    queryset = Books.objects.all()
+
+
+class AuthorView(ListView):
+    paginate_by = 2
+    model = Authors()
+    template_name = 'books/authors.html'
+    queryset = Authors.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['books'] = Books.objects.all()
+        return context
 
 @login_required(login_url='home')
 def main(request):
     context = {'books': 'show books', 'publishing': 'show publishing', 'forms': 'show forms', 'authors': 'show authors', 'logout': 'logout'}
     return render(request, 'books/main.html', context=context)
 
-@login_required(login_url='home')
-def show_books(request):
-    books = Books.objects.all()
-    books_filter = BooksFilter(request.GET, queryset=books)
+# @login_required(login_url='home')
+# def show_books(request):
+#     books = Books.objects.all()
+#     books_filter = BooksFilter(request.GET, queryset=books)
 
-    context = {'books': books, 'books_filter': books_filter}
+#     context = {'books': books, 'books_filter': books_filter}
 
-    return render(request, 'books/books.html', context=context)
+#     return render(request, 'books/books.html', context=context)
 
 @login_required(login_url='home')
 def show_publishings(request):
@@ -70,14 +90,14 @@ def show_forms(request):
 
     return render(request, 'books/forms.html', context=context)
 
-@login_required(login_url='home')
-def show_authors(request):
-    authors_filter = AuthorsFilter(request.GET, queryset=Authors.objects.all())
-    books = Books.objects.all()
+# @login_required(login_url='home')
+# def show_authors(request):
+#     authors_filter = AuthorsFilter(request.GET, queryset=Authors.objects.all())
+#     books = Books.objects.all()
 
-    context = {'authors_filter': authors_filter, 'books': books}
+#     context = {'authors_filter': authors_filter, 'books': books}
 
-    return render(request, 'books/authors.html', context=context)
+#     return render(request, 'books/authors.html', context=context)
 
 @login_required(login_url='home')
 def open_book(request, id_book):

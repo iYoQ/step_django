@@ -1,1 +1,62 @@
+{% comment %}
 {% extends 'base_show_all_authors.html' %}
+{% endcomment %}
+
+{% load static %}
+{% block show_books %}
+
+{% include 'inc/_inc.html' %}
+
+{% block inc %}
+{% endblock %}
+
+<body>
+	<div class="main">
+        {% comment %}
+		<div class="filter">
+			<form action="" method="GET">
+				{{ authors_filter.form.as_p }}
+				
+				<button class="btn btn-dark" type="submit">Filter</button> 
+			</form>
+		</div>
+        {% endcomment %}
+		<div class="show_book">
+			{% for author in object_list %}
+				<div class="card" style="width:400px">
+					<div class="card-body">
+						<h4 class="card-title">{{ author }}</h4>
+                        <p class="card-text"> Books: </p>
+                        {% for book in books %}
+                            {% if book.author_relative == author %}
+                                <img class="img_in_show_authors" src="{{book.image.url}}" alt="Card image">
+                            {% endif %}
+                        {% endfor %}
+					</div>
+				</div>
+			{% empty %}
+				<h4>empty list</h4>
+			{% endfor %}
+		</div>
+        
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+	</div>
+</body>
+</html>
+{% endblock %}

@@ -22,7 +22,9 @@ def home(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect(request.GET['next'])
+            if 'next' in request.GET:
+                return redirect(request.GET['next'])
+            return redirect('main')
 
     context = {'user_reg': user_reg, 'user_auth': user_auth}
 

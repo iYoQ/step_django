@@ -17,14 +17,15 @@ def home(request):
     elif request.method == 'POST' and 'authorization' in request.POST:
         user_auth = AuthenticationForm(data=request.POST)
 
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            if 'next' in request.GET:
-                return redirect(request.GET['next'])
-            return redirect('main')
+        if user_auth.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                if 'next' in request.GET:
+                    return redirect(request.GET['next'])
+                return redirect('main')
 
     context = {'user_reg': user_reg, 'user_auth': user_auth}
 

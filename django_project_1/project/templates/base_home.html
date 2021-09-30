@@ -14,7 +14,7 @@
             {% csrf_token %}
             {{ user_reg }}
 
-            <button class="btn btn-dark" type="submit" name="registration" data-bs-toggle="modal" data-bs-target="#myModal">Registration</button> 
+            <button class="btn btn-dark" type="submit" name="registration">Registration</button> 
         </form>
         {% if messages %}
             {% for message in messages %}
